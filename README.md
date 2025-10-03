@@ -1,3 +1,3 @@
 # singularitycraft
 
-## made in less than 100! seconds over less thn 10! days
+Made in less than 100! seconds over less than 10! days
