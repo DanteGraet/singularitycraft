@@ -1,0 +1,1 @@
+entityManager = love.filesystem.load("code/entity/entityManager.lua")()
