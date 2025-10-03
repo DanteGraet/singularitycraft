@@ -80,7 +80,7 @@ function g.draw()
     love.graphics.printf("singularitycraft", 0, 150, 1920*2, "center")
 
     font.setFont("kulimPark", 250)
-    love.graphics.printf( (gameSettings.save.kills or 0) .. "/" .. (gameSettings.save.deaths or 0) , 0, 650, 1920*2, "center")
+    love.graphics.printf( (gameSettings.save.kills or 0) .. ":" .. (gameSettings.save.deaths or 0) , 0, 650, 1920*2, "center")
 
     ui:draw()
 end
