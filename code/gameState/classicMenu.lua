@@ -52,12 +52,11 @@ function g.load()
     end
 
     ui = graetUI:newUI("")
-    ui:newObject("rectangleButton", "selectPistol", -200, 0, 400, 400, {.5,.5}, function() gameSettings.playerGun =         "classic/classicPistol";                start() end, love.graphics.newImage("image/gun/pistol.png"))
-    ui:newObject("rectangleButton", "selectShotgun", -800, 0, 400, 400, {.5,.5}, function() gameSettings.playerGun =        "classic/classicShotgun";              start() end, love.graphics.newImage("image/gun/shotgun.png"))
-    ui:newObject("rectangleButton", "selectSniper", 400, 0, 400, 400, {.5,.5}, function() gameSettings.playerGun =          "classic/classicSniper";                 start() end, love.graphics.newImage("image/gun/sniper.png"))
-    ui:newObject("rectangleButton", "selectMinigun", -500, 500, 400, 400, {.5,.5}, function() gameSettings.playerGun =      "classic/classicMinigun";            start() end, love.graphics.newImage("image/gun/minigun.png"))
-    ui:newObject("rectangleButton", "selectFlamethrower", 100, 500, 400, 400, {.5,.5}, function() gameSettings.playerGun =  "classic/classicFlamethrower";   start() end, love.graphics.newImage("image/gun/flamethrower.png"))
-
+    ui:newObject("rectangleButton", "selectPistol", -200, 0, 400, 400, {.5,.5}, function()        gameSettings.playerGun = "classic/classicPistol";        start() end, love.graphics.newImage("image/gun/pistol.png"))
+    ui:newObject("rectangleButton", "selectShotgun", -800, 0, 400, 400, {.5,.5}, function()       gameSettings.playerGun = "classic/classicShotgun";       start() end, love.graphics.newImage("image/gun/shotgun.png"))
+    ui:newObject("rectangleButton", "selectSniper", 400, 0, 400, 400, {.5,.5}, function()         gameSettings.playerGun = "classic/classicSniper";        start() end, love.graphics.newImage("image/gun/sniper.png"))
+    ui:newObject("rectangleButton", "selectMinigun", -500, 500, 400, 400, {.5,.5}, function()     gameSettings.playerGun = "classic/classicMinigun";       start() end, love.graphics.newImage("image/gun/minigun.png"))
+    ui:newObject("rectangleButton", "selectFlamethrower", 100, 500, 400, 400, {.5,.5}, function() gameSettings.playerGun = "classic/classicFlamethrower";  start() end, love.graphics.newImage("image/gun/flamethrower.png"))
 end
 
 
@@ -71,8 +70,6 @@ end
 
 function g.update(dt)
     ui:checkHover("")
-
-    
 end
 
 
@@ -85,10 +82,7 @@ function g.draw()
     font.setFont("kulimPark", 250)
     love.graphics.printf( (gameSettings.save.kills or 0) .. "/" .. (gameSettings.save.deaths or 0) , 0, 650, 1920*2, "center")
 
-
     ui:draw()
-
-    --love.graphics.rectangle("line", 100, 100, 1, 1)
 end
 
 return g

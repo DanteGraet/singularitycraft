@@ -87,8 +87,21 @@ function CanvasEntity:update(dt, input)
     return false
 end
 
-function CanvasEntity:bounce()
-    
+function CanvasEntity:beginContactWithObject(objectType, object, collision)
+    if objectType == "wall" then
+        local nx, ny = collision:getNormal( )
+
+        if ny < 0 then  -- falling down
+            local vx, vy = self.body:getLinearVelocity()
+            local x, y = collision:getPositions()
+
+            vy = -600*(self.bounceMultiplyer + 0.5*math.min((self.bounceEffectiveness+0.2), 1)) - math.abs(vx/5)
+            particleSystem.emit("dust", math.floor(self.bounceEffectiveness*25 + math.abs(vx/500)), x, y, -math.pi/2)
+
+            self.body:setLinearVelocity(vx, vy)
+        end
+        return
+    end
 end
 
 function CanvasEntity:onDeath()
@@ -97,19 +110,11 @@ end
 
 function CanvasEntity:draw()
     if self.body then
-        if self.team == "player" then
-            love.graphics.setColor(.4,.2,.5)
-        else
-            love.graphics.setColor(.6,.2,.1)
-        end
+        love.graphics.setColor(colours[self.team])
+        
         love.graphics.circle("fill", self.body:getX(), self.body:getY(), 30)
     end
 end
 
-function CanvasEntity:drawCollider()
-    love.graphics.setColor(1,1,1)
-
-    --love.graphics.circle("line", self.xPosition, self.yPosition, self.collisionRadius)
-end
 
 return CanvasEntity

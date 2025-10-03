@@ -26,7 +26,6 @@ function c.update(self, enemy, dt)
         c.input.target = {enemy.body:getX(), enemy.body:getY()}
     end
 
-
     c.input.primary = true
 end
 

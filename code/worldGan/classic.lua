@@ -11,8 +11,8 @@ return function(physicsManager)
 
         for i = 1,math.random(1, 2) do
             local x = math.random(-960 + 150, 150)
-            local obj = {}
-            local obj2 = {}
+            local obj = {objectType = "wall"}
+            local obj2 = {objectType = "wall"}
 
             physicsManager.addObjectToWorld(obj, wallShape, x, y, "static")
             physicsManager.addObjectToWorld(obj2, wallShape, x*-1, y, "static")

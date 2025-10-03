@@ -55,12 +55,21 @@ function Bullet:update(dt)
     end
 end
 
-function Bullet:draw()
-    if self.team == "player" then
-        love.graphics.setColor(.4,.2,.5, self.life*10)
+function Bullet:beginContactWithObject(objectType, object, collision)
+    if objectType == "charachter" then
+        object.health:takeDamage(object, self.damage)
+        self.kill = true
+        collision:setEnabled(false)
+
+        return
     else
-        love.graphics.setColor(.6,.2,.1, self.life*10)
+
     end
+end
+
+function Bullet:draw()
+    local c = colours[self.team]
+    love.graphics.setColor(c[1],c[2],c[3], self.life*10)
     love.graphics.circle("fill", self.body:getX(), self.body:getY(), self.radius)
 end
 

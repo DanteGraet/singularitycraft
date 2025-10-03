@@ -3,7 +3,7 @@ local physicsManager = {}
 local physicsWorld
 local walls
 
-local worldBoarder = {}
+local worldBoarder = {objectType = "wall"}
 
 function physicsManager.load()
     math.random(os.time(), love.timer.getTime())
@@ -45,6 +45,8 @@ function physicsManager.addObjectToWorld(object, shape, x, y, type)
     object.fixture = love.physics.newFixture(object.body, shape)
     object.fixture:setFriction(0)
 
+    object.body:setUserData(object)
+
     if object.postPhysicsInsertion then
         object:postPhysicsInsertion()
     end
@@ -55,7 +57,7 @@ function physicsManager.update(dt)
 end
 
 function physicsManager.drawWorld()
-    love.graphics.setColor(0,0,0)
+    love.graphics.setColor(colours.wall)
 
     for i = 1,#walls do
         local body = walls[i].body
@@ -97,66 +99,18 @@ function physicsManager.drawColliders()
     end
 end
 
+-- have to fix this code
 -- https://love2d.org/wiki/Contact
 function physicsManager.beginContact(a, b, collision)
     local aData = a:getBody():getUserData()
     local bData = b:getBody():getUserData()
 
-    if (aData and bData) and ((aData.objectType == "charachter" and bData.objectType == "bullet") or (aData.objectType == "bullet" and bData.objectType == "charachter")) then
-        local charBody, bulletBody
-        if aData.objectType == "charachter" then
-            charBody = aData
-            bulletBody = bData
-        else
-            bulletBody = aData
-            charBody = bData
-        end
-
-        charBody.health:takeDamage(charBody, bulletBody.damage)
-        bulletBody.kill = true
-        collision:setEnabled(false)
-        return
+    if aData.beginContactWithObject then
+        aData:beginContactWithObject(bData.objectType, bData, collision)
     end
 
-    if aData and aData.objectType == "charachter" then
-        local body = a:getBody()
-        local vx, vy = body:getLinearVelocity()
-        local nx, ny = collision:getNormal( )
-
-        if ny < 0 then  -- falling down
-            body:setLinearVelocity(vx, -600*(aData.bounceMultiplyer + 0.5*math.min((aData.bounceEffectiveness+0.2), 1)) - math.abs(vx/5))
-        end
-        return
-
-    elseif aData and aData.objectType == "bullet" then
-        local body = a:getBody()
-        local vx, vy = body:getLinearVelocity()
-        local nx, ny = collision:getNormal( )
-        --body:setLinearVelocity(math.abs(vx)*nx, math.abs(vy)*ny)
-       -- print(nx, ny)
-
-       return
-    end
-
-    if bData and bData.objectType == "charachter" then
-        local body = b:getBody()
-        local vx, vy = body:getLinearVelocity()
-        local nx, ny = collision:getNormal( )
-        local x, y = collision:getPositions()
-
-        if ny < 0 then  -- falling down
-            body:setLinearVelocity(vx, -600*(bData.bounceMultiplyer + 0.5*math.min((bData.bounceEffectiveness+0.2), 1)) - math.abs(vx/5))
-
-            particleSystem.emit("dust", math.floor(bData.bounceEffectiveness*25 + math.abs(vx/500)), x, y, -math.pi/2)
-        end
-        return
-    elseif bData and bData.objectType == "bullet" then
-        local body = b:getBody()
-        local vx, vy = body:getLinearVelocity()
-        local nx, ny = collision:getNormal( )
-        --body:setLinearVelocity(math.abs(vx)*nx, math.abs(vy)*ny)
-        --print(nx, ny)
-        return
+    if bData.beginContactWithObject then
+        bData:beginContactWithObject(aData.objectType, aData, collision)
     end
 end
 

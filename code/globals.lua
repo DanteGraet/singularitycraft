@@ -1,17 +1,12 @@
 -- load settings here
 colours = {
-    dark = {
-        background = {0.5, 0.5, 0.3},
-        line = {0, 0, 0},
-    },
-    light = {
-        background = {0.8, 0.8, 0.9},
-        line = {0, 0, 0},
-    },
+    background = {.3,.5,.6},
+    wall = {0, 0, 0},
+    player = {.4,.2,.5},
+    enemy = {.45,.2,.1},
 }
 
 settings = {
-    colourMode = "dark"
 }
 
 --[[
