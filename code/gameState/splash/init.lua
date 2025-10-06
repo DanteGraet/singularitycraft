@@ -1,5 +1,6 @@
 local nextGameState = "mainMenu"
-
+local sound = love.audio.newSource("code/gameState/splash/thump.wav", "static")
+sound:setVolume(0.2)
 local textList = {
     string.upper("'Jaraph'"),
 }
@@ -9,19 +10,19 @@ local timer
 math.randomseed(os.time(), love.timer.getTime())
 
 local squares = {
-    {x = 0, y = 0,      timeOffset = 0.2,       s = { -.5, -.5, -.5, .5, -.5, -.5, .5, -.5 },                 o = math.random()},
-    {x = 1, y = 1,      timeOffset = 0.2,       s = { 1.5, 1.5, 1.5, 0.5,  0,  0, 0.5, 1.5 },                 o = math.random()},
-    {x = 2, y = 2,      timeOffset = 0.2,       s = { 2.5, 2.5, 2.5, 1.5,  0,  0, 1.5, 2.5 },                 o = math.random()},
-    {x = -1, y = -1,    timeOffset = 0.2,       s = { -1.5, -1.5, -1.5, -0.5,  0,  0, -0.5, -1.5 },           o = math.random()},
-    {x = -2, y = -2,    timeOffset = 0.2,       s = { -2.5, -2.5, -2.5, -1.5,  0,  0, -1.5, -2.5 },           o = math.random()},
-    {x =  0, y = -2,    timeOffset = 0.2,       s = { -.5 , -1.5, -0.5, -2.5, 0.5, -2.5, 0.5, -1.5, 0, 0},    o = math.random()},
-    {x = 1, y = -2,     timeOffset = 0.2,       s = { 1.5, -2.5, 1.5, -1.5,  0,  0, 0.5, -2.5 },              o = math.random()},
-    {x = 1, y = -1,     timeOffset = 0.2,       s = { 1.5, -1.5, 1.5, -0.5,  0,  0, 0.5, -1.5 },              o = math.random()},
-    {x = 1, y = 0,      timeOffset = 0.2,       s = { .5, .5, 1.5, 0.5, 1.5, -.5, .5, -.5, 0, 0},             o = math.random()},
-    {x = -1, y = 1,     timeOffset = 0.2,       s = { -1.5, 1.5, -1.5, 0.5,  0,  0, -0.5, 1.5 },              o = math.random()},
-    {x = -1, y = 0,     timeOffset = 0.2,       s = { -.5, .5, -1.5, 0.5, -1.5, -.5, -.5, -.5, 0, 0},         o = math.random()},
-    {x = -1, y = 2,     timeOffset = 0.2,       s = { -1.5, 2.5, -1.5, 1.5,  0,  0, -0.5, 2.5 },              o = math.random()},
-    {x = 0, y = 2,      timeOffset = 0.2,       s = {-.5 , 1.5, -0.5, 2.5, 0.5, 2.5, 0.5, 1.5, 0, 0},         o = math.random()},
+    {x = 0, y = 0,      timeOffset = 0.2,       s = { -.5, -.5, -.5, .5, -.5, -.5, .5, -.5 },                 o = math.random(), soundPlayed = false},
+    {x = 1, y = 1,      timeOffset = 0.2,       s = { 1.5, 1.5, 1.5, 0.5,  0,  0, 0.5, 1.5 },                 o = math.random(), soundPlayed = false},
+    {x = 2, y = 2,      timeOffset = 0.2,       s = { 2.5, 2.5, 2.5, 1.5,  0,  0, 1.5, 2.5 },                 o = math.random(), soundPlayed = false},
+    {x = -1, y = -1,    timeOffset = 0.2,       s = { -1.5, -1.5, -1.5, -0.5,  0,  0, -0.5, -1.5 },           o = math.random(), soundPlayed = false},
+    {x = -2, y = -2,    timeOffset = 0.2,       s = { -2.5, -2.5, -2.5, -1.5,  0,  0, -1.5, -2.5 },           o = math.random(), soundPlayed = false},
+    {x =  0, y = -2,    timeOffset = 0.2,       s = { -.5 , -1.5, -0.5, -2.5, 0.5, -2.5, 0.5, -1.5, 0, 0},    o = math.random(), soundPlayed = false},
+    {x = 1, y = -2,     timeOffset = 0.2,       s = { 1.5, -2.5, 1.5, -1.5,  0,  0, 0.5, -2.5 },              o = math.random(), soundPlayed = false},
+    {x = 1, y = -1,     timeOffset = 0.2,       s = { 1.5, -1.5, 1.5, -0.5,  0,  0, 0.5, -1.5 },              o = math.random(), soundPlayed = false},
+    {x = 1, y = 0,      timeOffset = 0.2,       s = { .5, .5, 1.5, 0.5, 1.5, -.5, .5, -.5, 0, 0},             o = math.random(), soundPlayed = false},
+    {x = -1, y = 1,     timeOffset = 0.2,       s = { -1.5, 1.5, -1.5, 0.5,  0,  0, -0.5, 1.5 },              o = math.random(), soundPlayed = false},
+    {x = -1, y = 0,     timeOffset = 0.2,       s = { -.5, .5, -1.5, 0.5, -1.5, -.5, -.5, -.5, 0, 0},         o = math.random(), soundPlayed = false},
+    {x = -1, y = 2,     timeOffset = 0.2,       s = { -1.5, 2.5, -1.5, 1.5,  0,  0, -0.5, 2.5 },              o = math.random(), soundPlayed = false},
+    {x = 0, y = 2,      timeOffset = 0.2,       s = {-.5 , 1.5, -0.5, 2.5, 0.5, 2.5, 0.5, 1.5, 0, 0},         o = math.random(), soundPlayed = false},
 }
 
 table.sort(squares, function(a, b) return a.o < b.o end)
@@ -51,6 +52,16 @@ end
 
 local function update(dt)
     timer = timer + dt
+    for i = 1,#squares do
+        local s = squares[i]
+        local time = quindoc.clamp(timer  - s.timeOffset, 0, 1)
+        local audioClone = sound:clone()
+        audioClone:setPitch(1 + time/2)
+        if time == 1 and s.soundPlayed == false then
+            love.audio.play(audioClone)
+            s.soundPlayed = true
+        end
+    end
     if timer >= 6 then
         debug.print("[Splash] Finished")
         if nextGameState then
