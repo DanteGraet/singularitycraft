@@ -88,7 +88,7 @@ function CanvasEntity:update(dt, input)
 end
 
 function CanvasEntity:beginContactWithObject(objectType, object, collision)
-    if objectType == "wall" then
+    if self.body and objectType == "wall" then
         local nx, ny = collision:getNormal( )
 
         if ny < 0 then  -- falling down
