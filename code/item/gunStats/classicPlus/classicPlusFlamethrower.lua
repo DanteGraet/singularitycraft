@@ -3,19 +3,17 @@ return {
     bulletSpeed = 800,
 
     radius = 24,
-    bulletsFired = 1,
+    bulletsFired = 3,
     accuracy = 15,
 
     fireTime = 1/30,
     bulletLife = 0.2,
-    damage = 10,
-
-
+    damage = 4,
     
-    bulletCount = 100,
-    maxBulletCount = 100,
+    bulletCount = 300,
+    maxBulletCount = 300,
 
-    reloadTime = 2,
+    reloadTime = 1.5,
 
-    recoil = 15,
+    recoil = 5,
 }
