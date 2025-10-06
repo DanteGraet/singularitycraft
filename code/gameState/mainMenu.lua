@@ -26,7 +26,7 @@ function g.load()
 
     local currentFont = font.getFont("kulimPark", 250)
     for i = 1,#gamemodes do
-        ui:newObject("textButton", gamemodes[i], 0, 650 + (i-1)*300, gamemodes[i]:gsub("%.lua$", ""), currentFont, {.5,0}, function() gameSettings = dofile("gamemode/" .. gamemodes[i]); gameStateManager.setGameState(gameSettings.gamemode .. "Menu") end, {1,1,1})
+        ui:newObject("textButton", gamemodes[i], 0, 650 + (i-1)*300, gamemodes[i]:gsub("%.lua$", ""), currentFont, {.5,0}, function() gameSettings = love.filesystem.load("gamemode/" .. gamemodes[i])(); gameStateManager.setGameState(gameSettings.gamemode .. "Menu") end, {1,1,1})
     end
 
 end

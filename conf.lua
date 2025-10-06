@@ -1,5 +1,5 @@
 local name = "singularitycraft"
-local VERSION = "Alpha 2.1, classic plus: Reloaded"
+local VERSION = "Alpha 2.2, classic plus: Reloaded"
 DEV = false  
 
 TARGET_WIDTH = 1920
