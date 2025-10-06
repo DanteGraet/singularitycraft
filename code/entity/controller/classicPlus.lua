@@ -42,7 +42,7 @@ function c.update(self, enemy, dt)
     end
 
     c.offsetDistance = quindoc.clamp(c.offsetDistance + quindoc.sign(c.changeDis)*dt*25, c.minOffsetDistance, c.maxOffsetDistance)
-    c.offsetDirection = (c.offsetDirection + quindoc.sign(c.changeDis)*dt) % (math.pi*2)
+    c.offsetDirection = (c.offsetDirection + quindoc.sign(c.changeDir)*dt)
 
     local x, y =    self.body:getX(), self.body:getY()
     local ex, ey =  enemy.body:getX(), enemy.body:getY()

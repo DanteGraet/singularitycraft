@@ -8,7 +8,7 @@ return {
 
     fireTime = 0.5,
     bulletLife = 1,
-    damage = 8,
+    damage = 5,
 
 
 
