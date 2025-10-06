@@ -27,6 +27,8 @@ function Gun:new(team, data)
     obj.bulletSpeed = 1000
     obj.damage = 10
 
+    obj.recoil = 0
+
     dante.mergeTables(obj, data)
 
     obj.team = team
@@ -75,6 +77,9 @@ function Gun:usePrimary(entity, dt)
             local rotation = entity.angle + angleOffset
             --math.atan2(my-ey, mx-ex) + angleOffset
 
+            if self.recoil ~= 0 then
+                entity.body:applyLinearImpulse(-math.cos(rotation)*self.recoil, -math.sin(rotation)*self.recoil)
+            end
             entityManager.summon("bullet", true,
                     entity.body:getX(), entity.body:getY(), self.radius,
                     rotation, 

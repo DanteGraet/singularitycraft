@@ -40,7 +40,7 @@ function g.load()
     playerController = love.filesystem.load("code/entity/controller/player.lua")()
     player = entityManager.summon("canvasEntity", false, -800, 0, "player", love.filesystem.load("code/item/gunStats/" .. gameSettings.playerGun .. ".lua")())
     
-    enemyController = love.filesystem.load("code/entity/controller/classic.lua")()     -- temporaty trust me
+    enemyController = love.filesystem.load("code/entity/controller/" .. gameSettings.gamemode .. ".lua")()     -- temporaty trust me
     enemy =  entityManager.summon("canvasEntity", false, 800, 0, "enemy", love.filesystem.load("code/item/gunStats/" .. gameSettings.enemyGun .. ".lua")())
 
     love.mouse.setVisible(false)
