@@ -56,7 +56,8 @@ function g.keypressed(key)
     playerController.keypressed(key)
 
     if key == 'r' then
-        gameStateManager.setGameState("classicMenu")
+        gameSettings.onGameOver(enemy, player)
+        gameStateManager.setGameState(gameSettings.gamemode .. "Menu")
     end
 end
 function g.keyreleased(key)

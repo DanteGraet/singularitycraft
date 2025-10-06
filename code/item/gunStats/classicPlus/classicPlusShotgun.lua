@@ -10,8 +10,6 @@ return {
     bulletLife = 1,
     damage = 5,
 
-
-
     bulletCount = 20,
     maxBulletCount = 20,
 
