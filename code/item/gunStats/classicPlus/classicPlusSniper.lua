@@ -1,8 +1,8 @@
 return {
-    bulletCount = 3,
+    bulletCount = 2,
     maxBulletCount = 3,
 
-    reloadTime = 3,
+    reloadTime = 4,
     bulletSpeed = 1920,
 
     radius = 10,
