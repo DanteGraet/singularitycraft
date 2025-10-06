@@ -44,7 +44,7 @@ end
 
 
 function Gun:startPrimary(entity) 
-    if self.bulletCount > 0 then
+    if self.bulletCount > 0 and entity.team == "player" then
         drawMouse = function(mx, my)
             love.graphics.setColor(0,0,0)
             love.graphics.draw(mouseImage.shootOutline, mx, my, 0, 1, 1, 78/2, 78/2)
@@ -55,11 +55,13 @@ function Gun:startPrimary(entity)
 end
 
 function Gun:endPrimary(entity) 
-    drawMouse = function(mx, my)
-        love.graphics.setColor(0,0,0)
-        love.graphics.draw(mouseImage.aimOutline, mx, my, 0, 1, 1, 78/2, 78/2)
-        love.graphics.setColor(.3,.5,.6)
-        love.graphics.draw(mouseImage.aim, mx, my, 0, 1, 1, 78/2, 78/2)
+    if entity.team == "player" then
+        drawMouse = function(mx, my)
+            love.graphics.setColor(0,0,0)
+            love.graphics.draw(mouseImage.aimOutline, mx, my, 0, 1, 1, 78/2, 78/2)
+            love.graphics.setColor(.3,.5,.6)
+            love.graphics.draw(mouseImage.aim, mx, my, 0, 1, 1, 78/2, 78/2)
+        end
     end
 end
 
@@ -90,7 +92,7 @@ function Gun:usePrimary(entity, dt)
 
         self.bulletCount = math.max(self.bulletCount - self.bulletsFired, 0)
 
-        if self.bulletCount == 0 then
+        if self.bulletCount == 0 and entity.team == "player" then
             drawMouse = function(mx, my)
                 love.graphics.setColor(0,0,0)
                 love.graphics.draw(mouseImage.aimOutline, mx, my, 0, 1, 1, 78/2, 78/2)
@@ -105,22 +107,24 @@ end
 function Gun:startSecondary(entity) 
     self.reloadTimer = self.reloadTime
 
-    drawMouse = function(mx, my)
-        if self.reloadTimer > 0 and self.bulletCount < self.maxBulletCount then
-            love.graphics.setColor(0,0,0)
-            love.graphics.circle("fill", mx, my, 66/2)
+    if entity.team == "player" then
+        drawMouse = function(mx, my)
+            if self.reloadTimer > 0 and self.bulletCount < self.maxBulletCount then
+                love.graphics.setColor(0,0,0)
+                love.graphics.circle("fill", mx, my, 66/2)
 
-            love.graphics.setColor(.3,.5,.6)
-            love.graphics.circle("fill", mx, my, 66/2-6)
+                love.graphics.setColor(.3,.5,.6)
+                love.graphics.circle("fill", mx, my, 66/2-6)
 
-            
-            love.graphics.setColor(0,0,0)
-            love.graphics.circle("fill", mx, my, (60/2)*(self.reloadTimer/self.reloadTime))
-        else
-            love.graphics.setColor(0,0,0)
-            love.graphics.draw(mouseImage.aimOutline, mx, my, 0, 1, 1, 78/2, 78/2)
-            love.graphics.setColor(.3,.5,.6)
-            love.graphics.draw(mouseImage.aim, mx, my, 0, 1, 1, 78/2, 78/2)
+                
+                love.graphics.setColor(0,0,0)
+                love.graphics.circle("fill", mx, my, (60/2)*(self.reloadTimer/self.reloadTime))
+            else
+                love.graphics.setColor(0,0,0)
+                love.graphics.draw(mouseImage.aimOutline, mx, my, 0, 1, 1, 78/2, 78/2)
+                love.graphics.setColor(.3,.5,.6)
+                love.graphics.draw(mouseImage.aim, mx, my, 0, 1, 1, 78/2, 78/2)
+            end
         end
     end
 end
@@ -129,11 +133,13 @@ function Gun:endSecondary(entity)
     self.reloadTimer = 0
     self.fireTimer = self.fireTime
 
-    drawMouse = function(mx, my)
-        love.graphics.setColor(0,0,0)
-        love.graphics.draw(mouseImage.aimOutline, mx, my, 0, 1, 1, 78/2, 78/2)
-        love.graphics.setColor(.3,.5,.6)
-        love.graphics.draw(mouseImage.aim, mx, my, 0, 1, 1, 78/2, 78/2)
+    if entity.team == "player" then
+        drawMouse = function(mx, my)
+            love.graphics.setColor(0,0,0)
+            love.graphics.draw(mouseImage.aimOutline, mx, my, 0, 1, 1, 78/2, 78/2)
+            love.graphics.setColor(.3,.5,.6)
+            love.graphics.draw(mouseImage.aim, mx, my, 0, 1, 1, 78/2, 78/2)
+        end
     end
 end
 
