@@ -2,7 +2,31 @@
 *.lvlibp
 *.llb
 
+# Development stuffs
 *.love
+# Libraries
+*.lvlibp
+*.llb
+
+# Development stuffs
+*.love
+*.code-workspace
+*.bat
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+
+# Metadata
+*.aliases
+*.lvlps
+.cache/
+
 
 # Shared objects (inc. Windows DLLs)
 *.dll
