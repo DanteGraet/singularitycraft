@@ -1,4 +1,4 @@
-local nextGameState = "classicMenu"
+local nextGameState = "mainMenu"
 
 local textList = {
     string.upper("'Jaraph'"),
@@ -6,21 +6,28 @@ local textList = {
 
 local timer
 
+math.randomseed(os.time(), love.timer.getTime())
+
 local squares = {
-    {x = 0, y = 0,      timeOffset = 0.2  + 0.1,       s = { -.5, -.5, -.5, .5, -.5, -.5, .5, -.5 }},
-    {x = 1, y = 1,      timeOffset = 0.2  + 2.2,       s = { 1.5, 1.5, 1.5, 0.5,  0,  0, 0.5, 1.5 }},
-    {x = 2, y = 2,      timeOffset = 0.2  + 0.3,       s = { 2.5, 2.5, 2.5, 1.5,  0,  0, 1.5, 2.5 }},
-    {x = -1, y = -1,    timeOffset = 0.2  + 0.0,       s = { -1.5, -1.5, -1.5, -0.5,  0,  0, -0.5, -1.5 }},
-    {x = -2, y = -2,    timeOffset = 0.2  + 0.5,       s = { -2.5, -2.5, -2.5, -1.5,  0,  0, -1.5, -2.5 }},
-    {x =  0, y = -2,    timeOffset = 0.2  + 1.5,       s = { -.5 , -1.5, -0.5, -2.5, 0.5, -2.5, 0.5, -1.5, 0, 0}},
-    {x = 1, y = -2,     timeOffset = 0.2  + 1.0,       s = { 1.5, -2.5, 1.5, -1.5,  0,  0, 0.5, -2.5 }},
-    {x = 1, y = -1,     timeOffset = 0.2  + 1.6,       s = { 1.5, -1.5, 1.5, -0.5,  0,  0, 0.5, -1.5 }},
-    {x = 1, y = 0,      timeOffset = 0.2  + 0.0,       s = { .5, .5, 1.5, 0.5, 1.5, -.5, .5, -.5, 0, 0}},
-    {x = -1, y = 1,     timeOffset = 0.2  + 0.6,       s = { -1.5, 1.5, -1.5, 0.5,  0,  0, -0.5, 1.5 }},
-    {x = -1, y = 0,     timeOffset = 0.2  + 1.5,       s = { -.5, .5, -1.5, 0.5, -1.5, -.5, -.5, -.5, 0, 0}},
-    {x = -1, y = 2,     timeOffset = 0.2  + 1.3,       s = { -1.5, 2.5, -1.5, 1.5,  0,  0, -0.5, 2.5 }},
-    {x = 0, y = 2,      timeOffset = 0.2  + 0.9,       s = {-.5 , 1.5, -0.5, 2.5, 0.5, 2.5, 0.5, 1.5, 0, 0}},
+    {x = 0, y = 0,      timeOffset = 0.2,       s = { -.5, -.5, -.5, .5, -.5, -.5, .5, -.5 },                 o = math.random()},
+    {x = 1, y = 1,      timeOffset = 0.2,       s = { 1.5, 1.5, 1.5, 0.5,  0,  0, 0.5, 1.5 },                 o = math.random()},
+    {x = 2, y = 2,      timeOffset = 0.2,       s = { 2.5, 2.5, 2.5, 1.5,  0,  0, 1.5, 2.5 },                 o = math.random()},
+    {x = -1, y = -1,    timeOffset = 0.2,       s = { -1.5, -1.5, -1.5, -0.5,  0,  0, -0.5, -1.5 },           o = math.random()},
+    {x = -2, y = -2,    timeOffset = 0.2,       s = { -2.5, -2.5, -2.5, -1.5,  0,  0, -1.5, -2.5 },           o = math.random()},
+    {x =  0, y = -2,    timeOffset = 0.2,       s = { -.5 , -1.5, -0.5, -2.5, 0.5, -2.5, 0.5, -1.5, 0, 0},    o = math.random()},
+    {x = 1, y = -2,     timeOffset = 0.2,       s = { 1.5, -2.5, 1.5, -1.5,  0,  0, 0.5, -2.5 },              o = math.random()},
+    {x = 1, y = -1,     timeOffset = 0.2,       s = { 1.5, -1.5, 1.5, -0.5,  0,  0, 0.5, -1.5 },              o = math.random()},
+    {x = 1, y = 0,      timeOffset = 0.2,       s = { .5, .5, 1.5, 0.5, 1.5, -.5, .5, -.5, 0, 0},             o = math.random()},
+    {x = -1, y = 1,     timeOffset = 0.2,       s = { -1.5, 1.5, -1.5, 0.5,  0,  0, -0.5, 1.5 },              o = math.random()},
+    {x = -1, y = 0,     timeOffset = 0.2,       s = { -.5, .5, -1.5, 0.5, -1.5, -.5, -.5, -.5, 0, 0},         o = math.random()},
+    {x = -1, y = 2,     timeOffset = 0.2,       s = { -1.5, 2.5, -1.5, 1.5,  0,  0, -0.5, 2.5 },              o = math.random()},
+    {x = 0, y = 2,      timeOffset = 0.2,       s = {-.5 , 1.5, -0.5, 2.5, 0.5, 2.5, 0.5, 1.5, 0, 0},         o = math.random()},
 }
+
+table.sort(squares, function(a, b) return a.o < b.o end)
+for i = 1,#squares do
+    squares[i].timeOffset = squares[i].timeOffset + math.random(-1, 3)/10 + (i/10) * 2
+end
 
 local width = love.graphics.getWidth()
 local height = love.graphics.getHeight()
