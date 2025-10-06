@@ -57,7 +57,7 @@ function g.draw()
     font.setFont("kulimPark", 400)
     love.graphics.setLineWidth(1)
     love.graphics.setColor(1,1,1)
-    love.graphics.printf("singularitycraft", 0, 150, 1920*2, "center")
+    love.graphics.printf("classic", 0, 150, 1920*2, "center")
 
     font.setFont("kulimPark", 250)
     love.graphics.printf( (gameSettings.save.kills or 0) .. ":" .. (gameSettings.save.deaths or 0) , 0, 650, 1920*2, "center")
