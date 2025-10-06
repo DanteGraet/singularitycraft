@@ -35,7 +35,7 @@ function c.update(self, enemy, dt)
     c.changeDis = math.max(math.abs(c.changeDis) - dt, 0) * quindoc.sign(c.changeDis)
 
     if c.changeDir == 0 then
-        c.changeDir = math.random(-50, 50)/100
+        c.changeDir = math.random(-150, 150)/100
     end
     if c.changeDis == 0 then
         c.changeDis = math.random(-50, 50)/100

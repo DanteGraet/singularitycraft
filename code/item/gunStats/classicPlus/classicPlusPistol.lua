@@ -6,7 +6,7 @@ return {
 
     fireTime = .5,
     bulletLife = 4,
-    damage = 20,
+    damage = 15,
 
 
     bulletCount = 6,
