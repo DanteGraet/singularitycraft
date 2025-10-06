@@ -12,11 +12,13 @@ local elements = {}
 elements.rectangleCollider =    require("code/templateLib/graetUi/element/rectangleCollider")
 elements.circleCollider =       require("code/templateLib/graetUi/element/circleCollider")
 
+elements.textGraphic =       require("code/templateLib/graetUi/element/textGraphic")
+
+
 local objects = {}
-objects.textbox =              require("code/templateLib/graetUi/object/textbox")
-objects.rectangleButton =              require("code/templateLib/graetUi/object/rectangleButton")
-
-
+objects.textbox =               require("code/templateLib/graetUi/object/textbox")
+objects.rectangleButton =       require("code/templateLib/graetUi/object/rectangleButton")
+objects.textButton =            require("code/templateLib/graetUi/object/textButton")
 
 
 
